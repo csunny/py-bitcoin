@@ -9,7 +9,23 @@ Base58Alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 
 def base58decode(data):
-    pass
+    """
+    base58 解码
+    :param data:
+    :return:
+    """
+    result = 0
+
+    for d in data:
+        charIndex = Base58Alphabet.find(d)
+        result = result * len(Base58Alphabet)
+        result = result + charIndex
+
+    decoded = hex(result)
+
+    if data[0] == Base58Alphabet[0]:
+        decoded = 0x00 + decoded
+    return decoded
 
 
 def base58encode(data):
