@@ -25,11 +25,10 @@ def base58encode(data):
         x, mod = divmod(x, base)
         result.append(Base58Alphabet[mod])
 
-    print(result)
-
     if data[0] == 0x00:
         result.append(base58encode([0]))
 
+    # 利用自己实现的reverse算法，当然实际工作中直接调用python标准库中的函数
     return "".join(reverse(result))
 
 
