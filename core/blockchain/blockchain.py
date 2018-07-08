@@ -24,29 +24,15 @@ block = {
 from datetime import datetime
 
 
-def new_genesis_block(coinbase):
+class BlockChain:
     """
-    生成创世区块
-    :param coinbase:
-    :return:
+    doc New blockchain
     """
-    pass
+    def __init__(self):
+        pass
 
-
-def new_block(transaction, prev_block, height):
-    """
-        根据交易生成一个新的创世区块
-    :param transaction:
-    :param prev_block:
-    :param height:
-    :return:
-    """
-    block = {
-        "Timestamp": datetime.now(),
-        "Transaction": transaction,
-        "PrevBlockHash": prev_block,
-        "Height": height
-    }
+    def new_blockchain(self):
+        pass
 
 
 

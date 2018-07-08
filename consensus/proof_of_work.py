@@ -29,7 +29,9 @@ class ProofOfWork:
         pre_data = copy.deepcopy(self.block)
         pre_data.pop('Hash')
 
-        data = ""
+        data = {
+            ""
+        }
 
         return data
 
