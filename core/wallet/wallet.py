@@ -20,9 +20,6 @@ class Wallet:
     def __init__(self):
         pass
 
-    def new_wallet(self):
-        pass
-
     def new_keypair(self):
         """ 生成公私钥的键值对"""
         priv_key = keys.gen_private_key(curve.P256)
