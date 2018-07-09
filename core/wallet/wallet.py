@@ -8,7 +8,7 @@ import hashlib
 from fastecdsa import keys, curve
 from crypto.base58 import base58encode, base58decode
 
-version = 0x00
+version = "0x"
 addressChecksumLen = 4
 
 
@@ -40,11 +40,11 @@ class Wallet:
         """
         priv_key, pub_key = self.new_keypair()
         pubkey_hash = self.hash_pk(pub_key)
-
         version_payload = "".join([str(version), str(pubkey_hash)])
         checksum = self.checksum(version_payload)
 
         full_payload = "".join([str(version_payload), str(checksum)])
+
         address = base58encode(full_payload)
         return address
 
@@ -61,12 +61,10 @@ class Wallet:
             pub_key = pub_key.encode("utf-8")
 
         # sha256 加密
-        pub_sha256 = hashlib.sha256()
-        pub_sha256.update(pub_key)
-        pub_hash = pub_sha256.hexdigest()
+        pub_sha256 = hashlib.sha256(pub_key).hexdigest()
 
         # ripemd160
-        obj = hashlib.new("ripemd160", pub_hash.encode('utf-8'))
+        obj = hashlib.new("ripemd160", pub_sha256.encode('utf-8'))
         ripemd160_value = obj.hexdigest()
 
         return ripemd160_value
@@ -92,14 +90,12 @@ class Wallet:
         """
         pub_key_hash = base58decode(address)
 
-        actural_check_sum = pub_key_hash[len(pub_key_hash)-addressChecksumLen]
+        actural_check_sum = pub_key_hash[len(pub_key_hash) - addressChecksumLen:]
         version = pub_key_hash[0]
-
-        pub_key_hash = pub_key_hash[1:len(pub_key_hash)-addressChecksumLen]
+        pub_key_hash = pub_key_hash[1:len(pub_key_hash) - addressChecksumLen]
 
         payload = "".join([str(version), str(pub_key_hash)])
+
         target_check_sum = self.checksum(payload)
 
         return actural_check_sum == target_check_sum
-
-
