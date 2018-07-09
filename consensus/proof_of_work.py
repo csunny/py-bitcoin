@@ -4,8 +4,8 @@
 """
 This Document is Created by  At 2018/6/29 
 """
-import copy
-from settings import maxNonce
+import hashlib
+from settings import maxNonce, targetBits
 
 
 class ProofOfWork:
@@ -20,26 +20,52 @@ class ProofOfWork:
             raise TypeError
 
         self.block = block
+        self.target = 1 << (256-targetBits)
 
     def prepare_data(self):
         """
         准备计算的数据
         :return:
         """
-        pre_data = copy.deepcopy(self.block)
-        pre_data.pop('Hash')
 
-        data = {
-            ""
-        }
+        timestamp = hex(self.block["TimeStamp"])[0]
+
+        data = "".join([
+            self.block["PrevBlockHash"],
+            self.block["Data"],
+            timestamp,
+            hex(targetBits),
+            hex(self.nonce)
+        ])
 
         return data
 
     def run(self):
         print("Mining  a new block...")
+
+        hash_v = ""
         while self.nonce < maxNonce:
             data = self.prepare_data()
-            print(data)
+
+            hash_v = hashlib.sha256(data.encode("utf-8")).hexdigest()
+
+            print("-----> is mining ... %s" % hash_v)
+
+            if int(hash_v, 16) <= self.target:
+                break
+            else:
+                self.nonce += 1
+        print("\n")
+
+        return hash_v
 
     def validate(self):
-        pass
+        data = self.prepare_data()
+        hash_v = hashlib.sha256(data.encode('utf-8')).hexdigest()
+
+        if hash_v <= self.target:
+            return True
+        return False
+
+
+

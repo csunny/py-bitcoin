@@ -21,7 +21,7 @@ block = {
 
 """
 
-from datetime import datetime
+import time
 
 
 class BlockChain:
@@ -29,9 +29,9 @@ class BlockChain:
     doc New blockchain
     """
     def __init__(self):
-        pass
+        self.blockchain = []
 
-    def new_blockchain(self):
+    def add_block(self):
         pass
 
 
