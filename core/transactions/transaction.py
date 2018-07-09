@@ -6,6 +6,7 @@ This Document is Created by  At 2018/7/9
 """
 
 import hashlib
+from core.transactions.input import Input
 
 
 class Transaction:
@@ -48,3 +49,8 @@ class Transaction:
 
     def verify(self):
         pass
+
+
+def new_coinbase_tx(to, data="coinbase"):
+
+    pass
