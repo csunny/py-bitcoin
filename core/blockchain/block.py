@@ -26,7 +26,7 @@ class Block:
     def __init__(self):
         self.block = dict()
 
-    def new_block(self, data, prev_hash):
+    def new_block(self, data, prev_hash=""):
         block = {
             "TimeStamp": int(time.time()),
             "Data": data,
@@ -35,8 +35,9 @@ class Block:
 
         pow = ProofOfWork(block)
 
-        b_hash = pow.run()
+        b_hash, nonce = pow.run()
         block["Hash"] = b_hash
+        block["Nonce"] = nonce
 
         self.block = block
         return block

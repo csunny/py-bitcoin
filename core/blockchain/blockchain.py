@@ -20,19 +20,43 @@ block = {
 }
 
 """
-
-import time
+from core.blockchain.block import Block
+from consensus.proof_of_work import ProofOfWork
 
 
 class BlockChain:
     """
     doc New blockchain
     """
+
     def __init__(self):
-        self.blockchain = []
+        self.blocks = []
 
-    def add_block(self):
-        pass
+    def add_block(self, data):
 
+        if self.blocks:
 
+            last_block = self.blocks[-1]
+            b = Block()
+            new_block = b.new_block(data, last_block["Hash"])
 
+            pow = ProofOfWork(new_block, new_block["Nonce"])
+
+            if pow.validate():
+                self.blocks.append(new_block)
+        else:
+            b = Block()
+            new_block = b.new_block(data)
+
+            pow = ProofOfWork(new_block, new_block["Nonce"])
+            if pow.validate():
+                self.blocks.append(new_block)
+
+    def print_blockchain(self):
+        """
+        输出blockchain
+
+        :return:
+        """
+        for b in self.blocks:
+            print(b)

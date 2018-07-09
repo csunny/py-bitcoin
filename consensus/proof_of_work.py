@@ -49,7 +49,7 @@ class ProofOfWork:
 
             hash_v = hashlib.sha256(data.encode("utf-8")).hexdigest()
 
-            print("-----> is mining ... %s" % hash_v)
+            # print("-----> is mining ... %s" % hash_v)
 
             if int(hash_v, 16) <= self.target:
                 break
@@ -57,13 +57,15 @@ class ProofOfWork:
                 self.nonce += 1
         print("\n")
 
-        return hash_v
+        return hash_v, self.nonce
 
     def validate(self):
         data = self.prepare_data()
         hash_v = hashlib.sha256(data.encode('utf-8')).hexdigest()
 
-        if hash_v <= self.target:
+        print(int(hash_v, 16), self.target)
+
+        if int(hash_v, 16) <= self.target:
             return True
         return False
 
