@@ -20,6 +20,8 @@ block = {
 }
 
 """
+import json
+from storage.redis_storage import Redis
 from core.blockchain.block import Block
 from consensus.proof_of_work import ProofOfWork
 
@@ -30,27 +32,39 @@ class BlockChain:
     """
 
     def __init__(self):
-        self.blocks = []
+        # At first storage blocks in a memory list
+        # and then we storage this in redis
+        # self.blocks = []
+
+        self.blocks = Redis()
 
     def add_block(self, data):
 
-        if self.blocks:
-
-            last_block = self.blocks[-1]
+        if self.blocks.get('l'):
+            # there we should mark last block hash to create a new block.
+            # in the redis the l is the last block hash value key.
+            last_hash = self.blocks.get('l').decode()
             b = Block()
-            new_block = b.new_block(data, last_block["Hash"])
+
+            new_block = b.new_block(data, last_hash)
 
             pow = ProofOfWork(new_block, new_block["Nonce"])
 
             if pow.validate():
-                self.blocks.append(new_block)
+                # self.blocks.append(new_block)
+
+                self.blocks.set(new_block["Hash"], new_block)
+                self.blocks.set("l", new_block["Hash"])
+
         else:
             b = Block()
             new_block = b.new_block(data)
 
             pow = ProofOfWork(new_block, new_block["Nonce"])
             if pow.validate():
-                self.blocks.append(new_block)
+                # self.blocks.append(new_block)
+                self.blocks.set(new_block["Hash"], new_block)
+                self.blocks.set("l", new_block["Hash"])
 
     def print_blockchain(self):
         """
@@ -58,5 +72,10 @@ class BlockChain:
 
         :return:
         """
-        for b in self.blocks:
-            print(b)
+        # for b in self.blocks:
+        #     print(b)
+
+        for b in self.blocks.keys():
+            print(self.blocks.get(b).decode())
+
+

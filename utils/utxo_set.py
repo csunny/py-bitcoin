@@ -21,5 +21,10 @@ class UTXO(BlockChain):
 
     def find_spendable_outputs(self, pub_hash, amount):
         unspent_outputs = dict()
-
         accumulated = 0
+
+
+
+
+
+
