@@ -11,6 +11,20 @@ BTC通过UTXO来处理支付的逻辑。
 在使用UTXO的过程中，需要找到整条链上的所有的能够被 pubkeyhash 也就是钱包地址所签名认证的所有的输入与输出，
 然后从中找到unspent UTXO
 最后根据UTXO 计算balance
+
+
+=================================
+|   遍历所有的区块来查找utxo        |
+|   效率太低，                    |
+|  is there some useful skill?  |
+|                               |
+|            chainstate         |
+=================================
+
+
+交易缓存，每次发生交易的时候计算UTXO，然后将其写到database中持久化，下一次交易重新构建utxo,
+通过此方法避免每次都要重新计算所有的utxo， 提高计算效率。
+
 """
 from core.blockchain.blockchain import BlockChain
 
