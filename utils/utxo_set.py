@@ -31,8 +31,33 @@ class UTXO(BlockChain):
         unspent_outputs = dict()
         accumulated = 0
 
+        return accumulated, unspent_outputs
+
+    def utxo(self):
+        pass
+
+    def get_balance(self):
+        pass
 
 
+def new_uxto_transaction(f, to, amount, bc):
+    """
 
+    :param f:  发送地址
+    :param to: 接收地址
+    :param amount: 数量
+    :param bc:  blockchain
+    :return:
+    """
+    inputs = []
+    outputs = []
 
+    ux = UTXO()
+    acc, validated_outputs = ux.find_spendable_outputs(f, amount)
 
+    if acc < amount:
+        raise ValueError(
+            "Error: 没有足够的钱花费"
+        )
+
+        # todo 实现逻辑细节
