@@ -32,6 +32,8 @@ def blockchain():
 
     blocks = bc.print_blockchain()
 
+    blocks = sorted(blocks, key=lambda s: s['Data'])
+
     return json.dumps(blocks)
 
 

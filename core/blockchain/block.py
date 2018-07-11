@@ -12,6 +12,9 @@ from consensus.proof_of_work import ProofOfWork
 
 class Block:
     """
+
+    Todo add index for block.
+
     doc  区块
 
     block = {
