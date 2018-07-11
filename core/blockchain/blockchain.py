@@ -75,7 +75,11 @@ class BlockChain:
         # for b in self.blocks:
         #     print(b)
 
+        blocks = []
+
         for b in self.blocks.keys():
-            print(self.blocks.get(b).decode())
 
-
+            if b.decode() != 'l':
+                v = self.blocks.get(b).decode()
+                blocks.append(eval(v))
+        return blocks
