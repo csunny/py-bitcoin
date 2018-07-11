@@ -1,4 +1,6 @@
-### 比特币项目的python实现，利用python实现一个完整的区块链项目。
+### 比特币项目的python实现，利用python实现一个完整的区块链项目
+
+从零从python实现比特币项目， 写一个完整的区块链项目
 
 - 加密算法的应用
 - p2p 网络
@@ -7,4 +9,7 @@
 - UTXO 模型实现
 - Mekletree 
 - Account & Transaction
-- 
+
+
+
+
