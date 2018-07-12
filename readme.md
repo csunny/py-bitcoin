@@ -16,7 +16,8 @@
 
 如下为整个项目的架构图。这里从下往上对下图依次做个说明：
 
-![架构图](https://github.com/csunny/py-bitcoin/tree/master/docs/img/py-bitcoin.jpeg)
+![架构图](https://github.com/csunny/py-bitcoin/blob/master/docs/resource/img/py-bitcoin.jpeg)
+
 
 - Crypto 此模块为BTC链中用到的密码学相关的内容，主要包括Base58、hash以及椭圆加密等算法。我们知道，区块链中一个非常核心的就是就是加密技术，所以Crypto在整个技术架构中是占据着一个相当重要的位置，是整个区块链技术的基石，承载着整个区块链项目的顺利运行。
 
