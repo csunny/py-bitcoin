@@ -12,6 +12,8 @@ if __name__ == "__main__":
     # todo need to test
     address = w.get_address()
     valid = w.validate_addr(address)
+
+    print(address)
     assert valid is True
 
 

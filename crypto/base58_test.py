@@ -20,10 +20,6 @@ if __name__ == '__main__':
     # assert len(s) == len(data)
     # assert s.lower() == data.lower()
 
-
-    # data2 = "25gskL8otKZkGauzWoTBG4nfpGeFE8v"
-
-
     data3 = "0xa0b50f87ffd489b87b5539879d70a1ca857bc43ce229"
 
     res = base58encode(data3)
