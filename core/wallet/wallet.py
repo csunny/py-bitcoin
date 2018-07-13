@@ -96,3 +96,9 @@ class Wallet:
         target_check_sum = self.checksum(payload)
 
         return actural_check_sum == target_check_sum
+
+
+
+
+
+
