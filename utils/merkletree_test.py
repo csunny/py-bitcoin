@@ -21,6 +21,7 @@ if __name__ == "__main__":
 
     m5 = MerkleNode(m1, m2, b'')
     m5.new_node()
+
     print(m5.Left, m5.Right, m5.data)
 
     tree = MerkleTree([b'Node1', b'Node2', b'Node3'])
