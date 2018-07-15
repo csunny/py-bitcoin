@@ -44,6 +44,8 @@
 #### 文档
 - [专栏文档](https://xiaozhuanlan.com/eosio)
 
+- 经济机器是什么运作的 [中文](https://v.qq.com/x/page/n0515obtcil.html) [英文](https://www.youtube.com/watch?v=PHe0bXAIuk0)  （有助于理解比特币UTXO交易模型）
+
 
 
 #### Licence
