@@ -14,13 +14,12 @@ If the data is correct, the output can be unlocked, and its value can be used to
 
 """
 import hashlib
-import copy
 import json
 from core.transactions.input import Input
 from core.transactions.output import Output
 from fastecdsa import ecdsa
 
-subsidy = 10
+subsidy = 10   # 交易额
 
 
 class Transaction:
@@ -78,6 +77,8 @@ class Transaction:
     def hash(self):
 
         hv = hashlib.sha256(self.serialize().encode('utf-8')).hexdigest()
+
+        self.ID = hv
         return hv
 
     def sign(self, priv_key, prev_txs):
@@ -160,7 +161,7 @@ class Transaction:
         return True
 
 
-def new_coinbase_tx(to, data="fa6235d89f199ce5539c543128ec976f592e8dec"):
+def new_coinbase_tx(to, data="Base Info, Magic"):
     txin = Input("", -1, None, data)
     txout = Output(subsidy, to)
 
