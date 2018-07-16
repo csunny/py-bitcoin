@@ -19,17 +19,18 @@ def get_address(n):
 # 测试生成coinbase交易
 def build_coinbase_tx(to, data=None):
     tx = new_coinbase_tx(to, data) if data else new_coinbase_tx(to)
-
-    print(tx.serialize())
+    return tx
 
 
 def new_coinbase_test():
-    pass
+    addresses = get_address(10)
+    tx = build_coinbase_tx(addresses[0])
+    print(tx)
 
 
 def main():
-    addresses = get_address(10)
-    build_coinbase_tx(addresses[0])
+    new_coinbase_test()
+
 
 if __name__ == '__main__':
     main()

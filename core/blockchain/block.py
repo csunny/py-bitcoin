@@ -26,6 +26,29 @@ class Block:
     }
     """
 
+    # todo update data to transaction information,  and then the transaction look like
+    '''
+        block = {
+            "Timestamp": datetime.now(),
+            "Transactions": [
+                {
+                    "ID": "",    # 交易ID
+                    "Vin": "",    # 交易输入
+                    "Vout": ""   # 交易输出
+                    },
+                {
+                    "ID": "",
+                    "Vin"" "",
+                    "Vout"" "",
+                }
+            ],
+            "PrevBlockHash": "",
+            "Hash": "",
+            "Nonce": "",
+            "Height": ""
+        }
+    '''
+
     def __init__(self):
         self.block = dict()
 

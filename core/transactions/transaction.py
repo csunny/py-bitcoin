@@ -171,5 +171,10 @@ def new_coinbase_tx(to, data="Base Info, Magic"):
     return tx
 
 
-def new_utxo_transaction():
+def new_utxo_transaction(wallet, to, amount, utxoset):
+    inputs = []   #
+    outputs = []
+
     pass
+
+

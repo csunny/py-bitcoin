@@ -42,21 +42,34 @@ class UTXO(BlockChain):
         super(UTXO, self).__init__()
 
     def find_spendable_outputs(self, pub_hash, amount):
+        """
+        找出可以消费的余额
+        :param pub_hash:
+        :param amount:
+        :return:
+        """
         unspent_outputs = dict()
         accumulated = 0
 
         return accumulated, unspent_outputs
 
     def utxo(self):
+        """
+
+        :return:
+        """
         pass
 
     def get_balance(self):
+        """
+        获取账户余额（未交易输出）
+        :return:
+        """
         pass
 
 
-def new_uxto_transaction(f, to, amount, bc):
+def new_uxto_transaction(wallet, to, amount, utxo):
     """
-
     :param f:  发送地址
     :param to: 接收地址
     :param amount: 数量
@@ -67,11 +80,6 @@ def new_uxto_transaction(f, to, amount, bc):
     outputs = []
 
     ux = UTXO()
-    acc, validated_outputs = ux.find_spendable_outputs(f, amount)
 
-    if acc < amount:
-        raise ValueError(
-            "Error: 没有足够的钱花费"
-        )
-
-        # todo 实现逻辑细节
+    # todo 实现逻辑细节
+    pass

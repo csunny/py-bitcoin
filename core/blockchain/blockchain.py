@@ -8,7 +8,7 @@ This Document is Created by  At 2018/6/29
 
 block = {
     "Timestamp": datetime.now(),
-    "Transaction": {
+    "Transactions": {
         "ID": "",    # 交易ID
         "Vin": "",    # 交易输入
         "Vout": ""   # 交易输出
