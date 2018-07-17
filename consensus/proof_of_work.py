@@ -6,6 +6,7 @@ This Document is Created by  At 2018/6/29
 """
 import hashlib
 from settings import maxNonce, targetBits
+from core.blockchain.block import hash_txs
 
 
 class ProofOfWork:
@@ -32,7 +33,7 @@ class ProofOfWork:
 
         data = "".join([
             self.block["PrevBlockHash"],
-            self.block["Data"],
+            hash_txs(self.block),
             timestamp,
             hex(targetBits),
             hex(self.nonce)

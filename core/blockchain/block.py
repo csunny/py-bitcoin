@@ -9,6 +9,7 @@ import time
 import hashlib
 from consensus.proof_of_work import ProofOfWork
 from utils.merkletree import MerkleTree
+from core.transactions.transaction import Transaction
 
 
 class Block:
@@ -90,13 +91,27 @@ class Block:
 
         return hashlib.sha256(data.encode("utf-8")).hexdigest()
 
-    def hash_txs(self):
-        """
-        将block的transactions 信息hash加密, 并且用merkle tree来存储交易信息。
-        :return:
-        """
 
-        tree = MerkleTree(self.block["Transactions"])
-        tree.new_tree()
+def hash_txs(block):
+    """
+    将block的transactions 信息hash加密, 并且用merkle tree来存储交易信息。
+    :return:
+    """
 
-        return tree.root.data
+    tree = MerkleTree(block["Transactions"])
+    tree.new_tree()
+
+    return tree.root.data
+
+
+def new_genesis_block(coinbase):
+    """
+    根据coinbase交易创建一个创世区块
+    :param coinbase:
+    :return:
+    """
+    b = Block()
+
+    transaction = Transaction(coinbase.ID, coinbase.Vin, coinbase.Vout)
+    genesis_block =  b.new_block(transaction, "", 0)
+    return genesis_block
