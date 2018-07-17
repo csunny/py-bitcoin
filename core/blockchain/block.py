@@ -8,7 +8,6 @@ This Document is Created by  At 2018/7/7
 import time
 import hashlib
 from consensus.proof_of_work import ProofOfWork
-from utils.merkletree import MerkleTree
 from core.transactions.transaction import Transaction
 
 
@@ -92,18 +91,6 @@ class Block:
         return hashlib.sha256(data.encode("utf-8")).hexdigest()
 
 
-def hash_txs(block):
-    """
-    将block的transactions 信息hash加密, 并且用merkle tree来存储交易信息。
-    :return:
-    """
-
-    tree = MerkleTree(block["Transactions"])
-    tree.new_tree()
-
-    return tree.root.data
-
-
 def new_genesis_block(coinbase):
     """
     根据coinbase交易创建一个创世区块
@@ -113,5 +100,8 @@ def new_genesis_block(coinbase):
     b = Block()
 
     transaction = Transaction(coinbase.ID, coinbase.Vin, coinbase.Vout)
-    genesis_block =  b.new_block(transaction, "", 0)
+
+    tx = transaction.serialize()
+
+    genesis_block = b.new_block([str(tx).encode()], "", 0)
     return genesis_block
