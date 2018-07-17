@@ -1,0 +1,34 @@
+// created by magic for begin a demo of grpc, and write document of this.
+// -------------------
+// =======
+// ******
+
+syntax = "proto3";
+
+package hello;
+
+
+import "google/api/annotations.proto"
+
+// the greeting service definution
+service Greeter{
+    // Send a greeting
+    rpc SayHello(HelloRequest) returns (HelloReply){
+        option(google.api.http) = {
+            post: "/v1/example/hello"
+            body: "*"
+        };
+    }
+}
+
+
+// the request message containing the user's name
+message HelloRequest{
+    string name = 1;
+}
+
+message HelloReply{
+    string message = 1;
+}
+
+
