@@ -8,6 +8,7 @@ This Document is Created by  At 2018/7/7
 import time
 import hashlib
 from consensus.proof_of_work import ProofOfWork
+from utils.merkletree import MerkleTree
 
 
 class Block:
@@ -52,11 +53,13 @@ class Block:
     def __init__(self):
         self.block = dict()
 
-    def new_block(self, data, prev_hash=""):
+    def new_block(self, transactions, prev_hash, height):
         block = {
             "TimeStamp": int(time.time()),
-            "Data": data,
+            "Transactions": transactions,
             "PrevBlockHash": prev_hash,
+            "Nonce": 0,
+            "Height": height
         }
 
         pow = ProofOfWork(block)
@@ -86,3 +89,14 @@ class Block:
         data = "".join([block["PrevBlockHash"], block["Data"], timestamp])
 
         return hashlib.sha256(data.encode("utf-8")).hexdigest()
+
+    def hash_txs(self):
+        """
+        将block的transactions 信息hash加密, 并且用merkle tree来存储交易信息。
+        :return:
+        """
+
+        tree = MerkleTree(self.block["Transactions"])
+        tree.new_tree()
+
+        return tree.root.data
