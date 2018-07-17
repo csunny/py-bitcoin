@@ -27,6 +27,46 @@ def test_genesis_block():
     genesis_block = new_genesis_block(coinbase)
     print(genesis_block)
 
+    # we will get the genesis block like this, but there many work need to do, just
+    '''
+        {
+            "TimeStamp":1531800034,
+            "Transactions":[
+                {
+                    "ID":"aaf1cf4ab2675df2df75ce9828f719568aadaec61de1b8cb1217b92ce9e19e2e",
+                    "Vin":[
+                        {
+                            "txid":"",
+                            "vout":-1,
+                            "signature":null,
+                            "pubkey":"Base Info, Magic"
+                        }
+                    ],
+                    "Vout":Array[1]
+                },
+                {
+                    "ID":"aaf1cf4ab2675df2df75ce9828f719568aadaec61de1b8cb1217b92ce9e19e2e",
+                    "Vin":[
+                        {
+                            "txid":"",
+                            "vout":-1,
+                            "signature":null,
+                            "pubkey":"Base Info, Magic"
+                        }
+                    ],
+                    "Vout":[
+                        Object{...}
+                    ]
+                }
+            ],
+            "PrevBlockHash":"",
+            "Nonce":60137,
+            "Height":0,
+            "Hash":"00004c593701710e45c81238fd9f034f14f1fe523f5760f2e085b4a384e53d66"
+        }
+    
+    '''
+
 
 if __name__ == '__main__':
     test_genesis_block()
