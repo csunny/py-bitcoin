@@ -72,7 +72,7 @@ class BlockChain:
 
         if eval(last_block)["PrevBlockHash"]:
             self.current_hash = eval(last_block)["PrevBlockHash"]
-            return last_block
+            yield last_block
 
     def get_block(self, block_hash):
         block = self.blocks.get(block_hash)
@@ -81,6 +81,11 @@ class BlockChain:
 
         else:
             return "区块不存在"
+
+    def __next__(self):
+        height = self.get_height()
+        for i in range(height):
+            yield self.iterator()
 
     def find_tx(self, tid):
         """

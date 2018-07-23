@@ -43,10 +43,15 @@ def iter_blockchain(last_hash=None):
     # for i in range(bc.get_height()):
     #     print(bc.iterator())
 
+    print(next(bc.iterator()))
+    print(next(bc.iterator()))
+    print(next(bc.iterator()))
+
 if __name__ == '__main__':
     # test_create_bc()
     # s = iter_blockchain()
     bc = BlockChain()
 
-    for i in range(bc.get_height()):
-        print(bc.iterator())
+
+
+
