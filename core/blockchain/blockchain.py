@@ -37,6 +37,7 @@ class BlockChain:
         # self.blocks = []
 
         self.blocks = Redis()
+        self.current_hash = None
 
     def add_block(self, new_block):
         """
@@ -62,15 +63,16 @@ class BlockChain:
 
         return eval(last_block)["Height"]
 
-    def iterator(self, last_hash=None):
+    def iterator(self):
 
-        if not last_hash:
-            last_hash = self.blocks.get("l")
+        if not self.current_hash:
+            self.current_hash = self.blocks.get("l")
 
-        last_block = self.blocks.get(last_hash).decode()
-        print(last_block)
+        last_block = self.blocks.get(self.current_hash).decode()
+
         if eval(last_block)["PrevBlockHash"]:
-            return self.iterator(eval(last_block)["PrevBlockHash"])
+            self.current_hash = eval(last_block)["PrevBlockHash"]
+            return last_block
 
     def get_block(self, block_hash):
         block = self.blocks.get(block_hash)
@@ -79,6 +81,14 @@ class BlockChain:
 
         else:
             return "区块不存在"
+
+    def find_tx(self, tid):
+        """
+        根据交易id找到交易信息
+        :param tid:
+        :return:
+        """
+        pass
 
     def all_hashes(self):
 
@@ -96,6 +106,20 @@ class BlockChain:
         b = Block()
         new_block = b.new_block(transactions, lash_hash, height + 1)
         return new_block
+
+    def sign_transaction(self, tx):
+        """
+        交易信息加密
+        :return:
+        """
+        pass
+
+    def verify_transaction(self, tx):
+        """
+        交易信息解密
+        :return:
+        """
+        pass
 
     def print_blockchain(self):
         """

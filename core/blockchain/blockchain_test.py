@@ -39,9 +39,14 @@ def iter_blockchain(last_hash=None):
     if eval(last_block)["PrevBlockHash"]:
         return iter_blockchain(eval(last_block)["PrevBlockHash"])
 
+    # ### the way to itertor.
+    # for i in range(bc.get_height()):
+    #     print(bc.iterator())
 
 if __name__ == '__main__':
     # test_create_bc()
-    s = iter_blockchain()
+    # s = iter_blockchain()
+    bc = BlockChain()
 
-
+    for i in range(bc.get_height()):
+        print(bc.iterator())
