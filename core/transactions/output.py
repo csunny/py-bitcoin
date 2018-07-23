@@ -41,3 +41,9 @@ class Outputs:
     """
 
     pass
+
+
+def new_utxo_outputs(value, address):
+    txo = Output(value, None)
+    txo.lock(address)
+    return txo

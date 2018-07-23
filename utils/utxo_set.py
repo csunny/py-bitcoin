@@ -27,6 +27,10 @@ BTC通过UTXO来处理支付的逻辑。
 
 """
 from core.blockchain.blockchain import BlockChain
+from core.transactions.output import Output, new_utxo_outputs
+from crypto.hashripe import hash_pub_key
+from core.transactions.input import Input
+from core.transactions.transaction import Transaction
 
 utxoBucket = "chainstate"
 
@@ -50,23 +54,61 @@ class UTXO(BlockChain):
         """
         unspent_outputs = dict()
         accumulated = 0
+        # todo 直接查询utxo use pubkey to find.
+        # version_1 don't storage the utxo to database. only
+        # 由于不存储utxo的状态，所以每次都需要重新计算。
+        # the code need to update
+        utxo = self.find_utxo()
+        for tix, v in utxo.items():
+            unspent_outputs[tix] = []
+            for out in v:
+                out_obj = Output(out["value"], out["pub_key_hash"])
+                if out_obj.is_locked(pub_hash) and accumulated < amount:
+                    accumulated += out["value"]
+                    unspent_outputs[tix].append(out)
 
-        # 遍历所有的区块
         return accumulated, unspent_outputs
 
-    def utxo(self):
+    def utxo(self, pub_key_hash):
         """
 
         :return:
         """
-        pass
+        utxos = []
 
-    def get_balance(self):
+        utxo = self.find_utxo()
+        for tix, v in utxo.items():
+            for out in v:
+                out_obj = Output(out["value"], out["pub_key_hash"])
+                if out_obj.is_locked(pub_key_hash):
+                    utxos.append(out_obj)
+
+        return utxos
+
+    def get_balance(self, pub_key_hash):
         """
         获取账户余额（未交易输出）
         :return:
         """
-        pass
+        balance = 0
+        utxos = self.utxo(pub_key_hash)
+        for out in utxos:
+            balance += out.value
+
+        return balance
+
+    def count_transaction(self):
+        """
+        计算交易的数量
+        :return:
+        """
+        count = 0
+
+        utxo = self.find_utxo()
+        for k, v in utxo.items():
+            count += 1
+
+        return count
 
 
 def new_uxto_transaction(wallet, to, amount, utxo):
@@ -80,7 +122,32 @@ def new_uxto_transaction(wallet, to, amount, utxo):
     inputs = []
     outputs = []
 
-    ux = UTXO()
-
     # todo 实现逻辑细节
-    pass
+    pub_key_hash = hash_pub_key(wallet.pub_key)
+
+    acc, valid_outputs = utxo.find_spendable_outputs(pub_key_hash, amount)
+
+    if acc < amount:
+        raise ValueError("Not enough money to spend！")
+
+    # 输入
+    for txid, outs in valid_outputs.items():
+        for out in outs:
+            input = Input(txid, out, None, wallet.pub_key)
+            inputs.append(input)
+
+    # 输出
+    from_addr = wallet.get_address()
+
+    _out = new_utxo_outputs(amount, to)
+    outputs.append(_out)
+
+    if acc > amount:
+        new_out = new_utxo_outputs(acc - amount, from_addr)
+        outputs.append(new_out)
+
+    tx = Transaction("", inputs, outputs)
+    tx.ID = tx.hash()
+    utxo.sign_transaction(tx, wallet.private_key)
+
+    return tx

@@ -73,7 +73,7 @@ class BlockChain:
 
         if eval(last_block)["PrevBlockHash"]:
             self.current_hash = eval(last_block)["PrevBlockHash"]
-            yield last_block
+            yield eval(last_block)
 
     def get_block(self, block_hash):
         block = self.blocks.get(block_hash)
@@ -93,7 +93,67 @@ class BlockChain:
             try:
                 block = next(self.iterator())
             except StopIteration:
+
+                genesis_hash = self.blocks.get(self.current_hash).decode()
+                last_block = eval(genesis_hash)
+
+                coinbase_tx = last_block["Transactions"]
+                for tx in coinbase_tx:
+                    tx_obj = json.loads(tx.decode())
+                    if tx_obj["ID"] == tid:
+                        return tx
                 break
+
+            for tx in block["Transactions"]:
+                tx_obj = json.loads(tx.decode())
+
+                if tx_obj["ID"] == tid:
+                    return tx
+
+            return "未找到交易信息"
+
+    def find_utxo(self):
+        """
+        找出所有的utxo
+        :return:
+        """
+        utxo = dict()  # 存储utxo的信息
+        spent_tx = dict()
+        while True:
+            try:
+                last_block = next(self.iterator())
+            except StopIteration:
+                genesis_hash = self.blocks.get(self.current_hash).decode()
+                last_block = eval(genesis_hash)
+
+                coinbase_tx = last_block["Transactions"]
+                for tx in coinbase_tx:
+
+                    tx_json = json.loads(tx.decode())
+
+                    utxo[tx_json["ID"]] = []
+
+                    for out in tx_json["Vout"]:
+                        if not spent_tx[tx_json["ID"]]:
+                            utxo[tx_json["ID"]].append(out)
+
+                break     # 程序退出边界条件
+
+            for tx in last_block["Transactions"]:
+                tx_json = json.loads(tx.decode())
+                utxo[tx_json["ID"]] = []
+
+                for out in tx_json["Vout"]:
+                    if not spent_tx[tx_json["ID"]]:
+                        utxo[tx_json["ID"]].append(out)
+
+                for vin in tx_json["Vin"]:
+                    spent_tx[vin["txid"]] = []
+
+                for vin in tx_json["Vin"]:
+                    spent_tx[vin["txid"]].append(vin)
+
+        return utxo
 
     def all_hashes(self):
 

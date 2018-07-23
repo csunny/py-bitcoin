@@ -4,6 +4,7 @@
 """
 This Document is Created by  At 2018/7/9 
 """
+import json
 from core.blockchain.block import new_genesis_block, Block
 from core.transactions.transaction import new_coinbase_tx
 from core.blockchain.blockchain import BlockChain
@@ -23,7 +24,7 @@ def test_create_bc():
         transactions = [b'Node1', b"Node2", b"Node3", b"Node4"]
         last_hash = bc.blocks.get("l").decode()
         height = bc.get_height()
-        new_block = b.new_block(transactions, last_hash, height+1)
+        new_block = b.new_block(transactions, last_hash, height + 1)
         bc.add_block(new_block)
 
 
@@ -47,6 +48,7 @@ def iter_blockchain(last_hash=None):
     print(next(bc.iterator()))
     print(next(bc.iterator()))
 
+
 if __name__ == '__main__':
     # test_create_bc()
     # s = iter_blockchain()
@@ -58,11 +60,14 @@ if __name__ == '__main__':
         except StopIteration:
             genesis_hash = bc.blocks.get(bc.current_hash).decode()
             last_block = eval(genesis_hash)
-            print(last_block)
+
+            coinbase_tx = last_block["Transactions"]
+
+            for tx in coinbase_tx:
+
+                tx_str = tx.decode()
+                print(json.loads(tx_str))
             break
 
-        print(last_block)
-
-
-
-
+        # for tx in last_block["Transactions"]:
+        #     print(tx)
