@@ -18,6 +18,9 @@ class MerkleTree:
         if not isinstance(data, list):
             raise TypeError("data must be a bytes list")
 
+        if not data:
+            raise ValueError("交易信息不能为空")
+
         self.data = data
         self.nodes = []
         self.root = None

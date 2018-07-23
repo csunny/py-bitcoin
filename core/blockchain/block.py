@@ -8,6 +8,7 @@ This Document is Created by  At 2018/7/7
 import time
 import hashlib
 from consensus.proof_of_work import ProofOfWork
+from core.transactions.transaction import Transaction
 
 
 class Block:
@@ -52,11 +53,13 @@ class Block:
     def __init__(self):
         self.block = dict()
 
-    def new_block(self, data, prev_hash=""):
+    def new_block(self, transactions, prev_hash, height):
         block = {
             "TimeStamp": int(time.time()),
-            "Data": data,
+            "Transactions": transactions,
             "PrevBlockHash": prev_hash,
+            "Nonce": 0,
+            "Height": height
         }
 
         pow = ProofOfWork(block)
@@ -86,3 +89,19 @@ class Block:
         data = "".join([block["PrevBlockHash"], block["Data"], timestamp])
 
         return hashlib.sha256(data.encode("utf-8")).hexdigest()
+
+
+def new_genesis_block(coinbase):
+    """
+    根据coinbase交易创建一个创世区块
+    :param coinbase:
+    :return:
+    """
+    b = Block()
+
+    transaction = Transaction(coinbase.ID, coinbase.Vin, coinbase.Vout)
+
+    tx = transaction.serialize()
+
+    genesis_block = b.new_block([str(tx).encode()], "", 0)
+    return genesis_block

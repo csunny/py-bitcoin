@@ -6,6 +6,7 @@ This Document is Created by  At 2018/6/29
 """
 import hashlib
 from settings import maxNonce, targetBits
+from utils.merkletree import MerkleTree
 
 
 class ProofOfWork:
@@ -22,6 +23,17 @@ class ProofOfWork:
         self.block = block
         self.target = 1 << (256-targetBits)
 
+    def hash_txs(self):
+        """
+        将block的transactions 信息hash加密, 并且用merkle tree来存储交易信息。
+        :return:
+        """
+
+        tree = MerkleTree(self.block["Transactions"])
+        tree.new_tree()
+
+        return tree.root.data
+
     def prepare_data(self):
         """
         准备计算的数据
@@ -32,7 +44,7 @@ class ProofOfWork:
 
         data = "".join([
             self.block["PrevBlockHash"],
-            self.block["Data"],
+            self.hash_txs(),
             timestamp,
             hex(targetBits),
             hex(self.nonce)
@@ -68,6 +80,7 @@ class ProofOfWork:
         if int(hash_v, 16) <= self.target:
             return True
         return False
+
 
 
 

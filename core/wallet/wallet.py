@@ -18,7 +18,8 @@ class Wallet:
     """
 
     def __init__(self):
-        pass
+        self.pub_key = None
+        self.private_key = None
 
     def new_keypair(self):
         """ 生成公私钥的键值对"""
@@ -28,6 +29,8 @@ class Wallet:
 
         pub_key = "".join([str(pub_key.x), str(pub_key.y)])
 
+        self.private_key = priv_key
+        self.pub_key = pub_key
         return priv_key, pub_key
 
     def get_address(self):
@@ -96,9 +99,3 @@ class Wallet:
         target_check_sum = self.checksum(payload)
 
         return actural_check_sum == target_check_sum
-
-
-
-
-
-
