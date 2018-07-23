@@ -51,6 +51,7 @@ class UTXO(BlockChain):
         unspent_outputs = dict()
         accumulated = 0
 
+        # 遍历所有的区块
         return accumulated, unspent_outputs
 
     def utxo(self):
