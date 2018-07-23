@@ -65,6 +65,7 @@ class BlockChain:
 
     def iterator(self):
 
+        # 这里没有迭代创世区块
         if not self.current_hash:
             self.current_hash = self.blocks.get("l")
 
@@ -88,7 +89,11 @@ class BlockChain:
         :param tid:
         :return:
         """
-        pass
+        while True:
+            try:
+                block = next(self.iterator())
+            except StopIteration:
+                break
 
     def all_hashes(self):
 

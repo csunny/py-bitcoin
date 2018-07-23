@@ -5,7 +5,7 @@
 This Document is Created by  At 2018/7/9 
 """
 from core.blockchain.block import new_genesis_block, Block
-from core.transactions.transaction import new_coinbase_tx, Input, Output
+from core.transactions.transaction import new_coinbase_tx
 from core.blockchain.blockchain import BlockChain
 
 
@@ -51,6 +51,17 @@ if __name__ == '__main__':
     # test_create_bc()
     # s = iter_blockchain()
     bc = BlockChain()
+
+    while True:
+        try:
+            last_block = next(bc.iterator())
+        except StopIteration:
+            genesis_hash = bc.blocks.get(bc.current_hash).decode()
+            last_block = eval(genesis_hash)
+            print(last_block)
+            break
+
+        print(last_block)
 
 
 
