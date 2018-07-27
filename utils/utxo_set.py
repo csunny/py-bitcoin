@@ -113,10 +113,10 @@ class UTXO(BlockChain):
 
 def new_uxto_transaction(wallet, to, amount, utxo):
     """
-    :param f:  发送地址
+    :param wallet:  发送地址
     :param to: 接收地址
     :param amount: 数量
-    :param bc:  blockchain
+    :param utxo:  utxo 池
     :return:
     """
     inputs = []
