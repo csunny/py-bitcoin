@@ -29,7 +29,7 @@ Enter a new BPM: 1
 ```
 
 ####
-文档地址 [](https://xiaozhuanlan.com/topic/1680729435)
+[文档地址](https://xiaozhuanlan.com/topic/1680729435)
 
 
 
