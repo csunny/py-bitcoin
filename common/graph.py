@@ -35,6 +35,7 @@ class mstack:
     """
     实现一个栈
     """
+
     def __init__(self):
         self.stack = []
 
@@ -43,7 +44,7 @@ class mstack:
 
     def pop(self):
         q = self.stack[-1]
-        self.stack = self.stack[0:len(self.stack)-1]
+        self.stack = self.stack[0:len(self.stack) - 1]
 
         return q
 
@@ -104,6 +105,7 @@ def dfs(n, graph):
 
                 if not visited.get(node):
                     visited[node] = True
+
 
 if __name__ == '__main__':
     graph = dict()
