@@ -6,7 +6,7 @@ This Document is Created by  At 2018/7/10
 """
 
 
-class mqueue:
+class MQueue:
     """
     实现一个队列
     """
@@ -31,7 +31,7 @@ class mqueue:
         return len(self.queue) == 0
 
 
-class mstack:
+class MStack:
     """
     实现一个栈
     """
@@ -61,7 +61,7 @@ def bfs(n, graph):
     """
     visited = {}  # 用来存储被访问过的顶点
 
-    q = mqueue()
+    q = MQueue()
 
     q.append(n)
 
@@ -89,7 +89,7 @@ def dfs(n, graph):
     :return:
     """
     visited = dict()
-    s = mstack()
+    s = MStack()
     s.append(n)
 
     while not s.empty:
