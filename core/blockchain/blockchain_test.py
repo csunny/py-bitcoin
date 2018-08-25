@@ -64,7 +64,6 @@ if __name__ == '__main__':
             coinbase_tx = last_block["Transactions"]
 
             for tx in coinbase_tx:
-
                 tx_str = tx.decode()
                 print(json.loads(tx_str))
             break
