@@ -11,3 +11,4 @@ import time
 # Magic Node
 magic = Net(passive_bind="0.0.0.0", passive_port=4444, node_type="passive", debug=True)
 magic.start()
+
