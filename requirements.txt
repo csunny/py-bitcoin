@@ -1,3 +1,5 @@
 redis
 fastecdsa     # 椭圆加密算法python库
 flask
+pytest
+asyncio
