@@ -1,0 +1,3 @@
+[submodule "libp2p"]
+	path = libp2p
+	url = git@github.com:zixuanzh/py-libp2p.git

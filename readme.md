@@ -1,3 +1,5 @@
+
+<a href="https://travis-ci.org/csunny/py-bitcoin"><img src="https://travis-ci.com/csunny/py-bitcoin.svg?branch=master" /></a>
 ### 比特币项目的python实现，利用python实现一个完整的区块链项目
 
 从零用python实现比特币项目， 写一个完整的BTC链。
