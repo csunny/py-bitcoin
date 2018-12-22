@@ -1,6 +1,8 @@
 
 <a href="https://travis-ci.org/csunny/py-bitcoin"><img src="https://travis-ci.com/csunny/py-bitcoin.svg?branch=master" /></a>
-### 比特币项目的python实现，利用python实现一个完整的区块链项目
+### 比特币项目的python简易实现，利用python实现一个完整的区块链项目
+
+注意: 本项目属于业余项目，并不打算完全实现bitcoin全部协议，甚至会加一些不同的地方，比如最近正在思考利用V8+llvm实现虚拟机，说这个是为什么呢？ 有些国人实在素质堪忧，上来就说不是完整实现，狂喷。 这里特别说明下，不伺候喷子，喷子请绕道吧！
 
 从零用python实现比特币项目， 写一个完整的BTC链。
 
